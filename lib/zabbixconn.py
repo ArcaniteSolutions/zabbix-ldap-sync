@@ -194,6 +194,10 @@ class ZabbixConn(object):
             user (string): Zabbix username
 
         """
+
+        if user == self.username:
+            return
+
         userid = self.get_user_id(user)
 
         result = self.conn.user.delete(userid)
