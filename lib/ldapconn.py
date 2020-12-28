@@ -46,6 +46,7 @@ class LDAPConn(object):
             SystemExit
 
         """
+        ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
         self.conn = ldap.initialize(self.uri)
         self.conn.set_option(ldap.OPT_REFERRALS, ldap.OPT_OFF)
 
@@ -132,10 +133,10 @@ class LDAPConn(object):
             # Fill dictionary with usernames and corresponding DNs
             for item in group_members:
                 dn = item[0]
- 
+
                 username = item[1][self.uid_attribute]
                 user = ''.join(username[0].decode('utf-8'))
-            
+
                 final_listing[user] = dn
 
         return final_listing
